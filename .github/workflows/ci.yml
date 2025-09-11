@@ -35,7 +35,7 @@ jobs:
         run: pip install -r requirements.txt
       # pip-audit como Action oficial (Marketplace)
       - name: pip-audit (SCA)
-        uses: pypa/gh-action-pip-audit@v1
+        uses:  pypa/gh-action-pip-audit@v1.1.0
         # deixe true se quiser garantir CI verde na entrega
         continue-on-error: true
 
