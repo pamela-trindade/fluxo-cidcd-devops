@@ -1,0 +1,41 @@
+name: Continuous Delivery
+
+on:
+  push:
+    branches: ['main']   # roda após o merge no main
+
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Smoke tests (rápidos)
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: pytest -q
+
+      - name: Build artifact
+        run: zip -r app.zip app.py tests requirements.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: app.zip
+
+      - name: Deploy (simulado)
+        run: |
+          echo "Deploy OK (simulado) no branch main"
+          echo "Commit: $GITHUB_SHA | Autor: $GITHUB_ACTOR"
