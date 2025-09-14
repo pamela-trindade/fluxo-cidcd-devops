@@ -1,9 +1,0 @@
-.git
-.github/
-__pycache__/
-*.pyc
-.venv/
-env/
-.pytest_cache/
-README.md
-tests/
