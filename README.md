@@ -10,3 +10,10 @@
 ### Build da imagem
 ```bash
 docker build -t fluxo-cicd-devops:latest .
+
+## Testes 
+http://localhost:8000/
+
+http://localhost:8000/soma?a=2&b=3
+
+http://localhost:8000/media?valores=2,4,6
