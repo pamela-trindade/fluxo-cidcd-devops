@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from src.app import soma, media
+from app import soma, media
 
 app = FastAPI(title="Fluxo CI/CD DevOps")
 
