@@ -57,14 +57,13 @@ jobs:
           pip install pytest pytest-cov
 
       - name: Run pytest (JUnit + Coverage)
-        # Se você estiver usando layout src/, troque --cov=app para:
-        #   --cov=src     (ou --cov=nome_do_pacote)
-        # e adicione env: PYTHONPATH=${{ github.workspace }}/src
+        env:
+          PYTHONPATH: ${{ github.workspace }}/src   # <— aqui está o truque
         run: |
           mkdir -p reports
           pytest -q \
             --junitxml=reports/junit.xml \
-            --cov=app \
+            --cov=src \
             --cov-report=xml:reports/coverage.xml \
             --cov-report=html:reports/html
 
@@ -79,3 +78,4 @@ jobs:
         with:
           name: coverage-html
           path: reports/html
+
