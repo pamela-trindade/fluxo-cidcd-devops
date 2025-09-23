@@ -42,20 +42,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: [lint, security]
     env:
-      # Garante que a raiz do repositório está no sys.path
+      # garante que a raiz do repo está no sys.path
       PYTHONPATH: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
 
-      # Debug: mostra o que veio no checkout.
+      # DEBUG: confirma o que veio no checkout
       - name: Show repo tree (debug)
         run: |
-          echo "pwd:"
-          pwd
-          echo "ls -la (root):"
-          ls -la
-          echo "ls -la tests/:"
-          ls -la tests || true
+          echo "pwd:" && pwd
+          echo "--- root ---" && ls -la
+          echo "--- tests ---" && ls -la tests || true
           echo "Existe app.py?"
           test -f app.py && echo "OK: app.py encontrado" || (echo "ERRO: app.py NÃO encontrado no checkout" && exit 1)
 
@@ -91,6 +88,3 @@ jobs:
         with:
           name: coverage-html
           path: reports/html
-
-
-
