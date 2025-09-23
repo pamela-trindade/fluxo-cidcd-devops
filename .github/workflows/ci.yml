@@ -44,6 +44,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Show repo tree (debug)
+        run: |
+          pwd
+          ls -la
+          echo "---- tests/"
+          ls -la tests || true
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -57,13 +64,11 @@ jobs:
           pip install pytest pytest-cov
 
       - name: Run pytest (JUnit + Coverage)
-        env:
-          PYTHONPATH: ${{ github.workspace }}/src   # <— aqui está o truque
         run: |
           mkdir -p reports
           pytest -q \
             --junitxml=reports/junit.xml \
-            --cov=src \
+            --cov=app \
             --cov-report=xml:reports/coverage.xml \
             --cov-report=html:reports/html
 
@@ -78,4 +83,5 @@ jobs:
         with:
           name: coverage-html
           path: reports/html
+
 
